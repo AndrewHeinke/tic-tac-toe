@@ -1,0 +1,19 @@
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.box {
+  background-color: #efefef;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  cursor: pointer;
+}
