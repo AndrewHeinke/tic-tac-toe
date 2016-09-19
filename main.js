@@ -1,5 +1,11 @@
 $(document).ready(function() {
-    console.log( "ready!" );
+  function startGame() {
+    var turn = "X";
 
-
+    setMessage(turn + " gets to start.");
+  }
+  function setMessage(msg) {
+    document.getElementById('message').innerHTML = msg;
+  }
+  startGame();
 });
