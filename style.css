@@ -1,17 +1,25 @@
+body {
+  background: #eeeeee;
+  color: #333333;
+}
+table {
+  background: #ffffff;
+  border-radius: 5px;
+}
 td {
-  border: 1px solid #000;
+  border: 2px solid #cccccc;
   padding: 5px;
   width: 100px;
   height: 100px;
   text-align: center;
-  font-size: 18px;
+  font-size: 3em;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #message {
-  background: green;
   padding: 10px;
-  color: #ffffff;
+  color: #333333;
   margin-bottom: 10px;
   width: 100%;
   text-align: center;
