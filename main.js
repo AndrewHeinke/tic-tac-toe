@@ -8,7 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
     e.target.innerHTML = currentTurn;
     currentTurn = currentTurn === playerOneSymbol ? playerTwoSymbol : playerOneSymbol;
     if(checkWin()) {
-      alert('somebody won!');
+      if (currentTurn === 'X') {
+        alert('Player O has won the game!');
+      }
+      else {
+        alert('Player X has won the game!');
+      }
+
     }
   });
 

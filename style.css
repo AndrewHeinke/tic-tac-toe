@@ -1,15 +1,22 @@
 body {
-  background: #efefef;
-  color: #333333;
+  background: #191716;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
 }
 
 .board {
-  width: 600px;
   display: flex;
+  width: 600px;
   height: 600px;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  border: 5px solid #E0E2DB;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .square {
@@ -17,12 +24,13 @@ body {
   width: 200px;
   height: 200px;
   box-sizing: border-box;
-  border: 5px solid black;
+  border: 5px solid #E0E2DB;
   justify-content: center;
   align-items: center;
   font-size: 5em;
 }
+
 .square:hover {
-  background-color: green;
+  background-color: #BEB7A4;
   cursor: pointer;
 }
