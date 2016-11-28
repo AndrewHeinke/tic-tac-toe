@@ -1,64 +1,30 @@
-$(document).ready(function() {
-  function startGame() {
-    var turn = "X";
-    setMessage("Player " + turn + " gets to start.");
+document.addEventListener("DOMContentLoaded", function() {
+  var playerOneSymbol = "X";
+  var playerTwoSymbol = "O";
+  var currentTurn = playerOneSymbol;
 
-    function nextMove(square) {
-      if (square.innerText === "") {
-        square.innerHTML = turn;
-        if (checkWin(turn)) {
-          setMessage("Congratulations, Player" + turn + " is the winner!");
-        }
-        else if (turn === "X") {
-          turn = "O";
-          setMessage("Player " + turn + " make your move.");
-        }
-        else {
-          turn = "X";
-          setMessage("Player " + turn + " make your move.");
-        }
+  var board = document.querySelector('.board');
+  board.addEventListener('click', function(e) {
+    e.target.innerHTML = currentTurn;
+    currentTurn = currentTurn === playerOneSymbol ? playerTwoSymbol : playerOneSymbol;
+    if(checkWin()) {
+      alert('somebody won!');
+    }
+  });
+
+  function checkWin() {
+    var squares = Array.prototype.slice.call(document.querySelectorAll('.square'), 0);
+    var symbols = squares.map(function(square) {
+      return square.innerHTML;
+    });
+    var winningCombos = [[0,1,2], [3,4,5],  [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
+    return winningCombos.find(function(combo) {
+      if(symbols[combo[0]] === symbols[combo[1]] && symbols[combo[1]] === symbols[combo[2]]) {
+        return symbols[combo[0]];
       }
       else {
-        setMessage("That square is already taken. Player " + turn + " please select another square.");
+        return false;
       }
-    }
-
-    $('.square').on('click', function(square) {
-      nextMove(this);
     });
   }
-
-  function setMessage(msg) {
-    $('#message').html(msg);
-  }
-
-  function checkWin(move) {
-    var result = false;
-    if (checkRow(1,2,3,move) ||
-        checkRow(4,5,6,move) ||
-        checkRow(7,8,9,move) ||
-        checkRow(1,4,7,move) ||
-        checkRow(2,5,8,move) ||
-        checkRow(3,6,9,move) ||
-        checkRow(1,5,9,move) ||
-        checkRow(3,5,7,move)) {
-
-        result = true;
-        }
-    return result;
-  }
-
-  function checkRow(a, b, c, move) {
-    var result = false;
-    if (getBox(a) == move && getBox(b) == move && getBox(c) == move) {
-      result = true;
-    }
-
-  }
-
-  function getBox(number) {
-    return document.getElementById(number).innerText;
-  }
-
-  startGame();
 });
