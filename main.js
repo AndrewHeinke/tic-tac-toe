@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
   var playerOneSymbol = "X";
   var playerTwoSymbol = "O";
+  var playerOneWins = 0;
+  var playerTwoWins = 0;
   var currentTurn = playerOneSymbol;
+  var playerOne = document.querySelector('.playerX');
+  var playerTwo = document.querySelector('.playerO');
 
   var board = document.querySelector('.board');
   board.addEventListener('click', function(e) {
@@ -9,12 +13,27 @@ document.addEventListener("DOMContentLoaded", function() {
     currentTurn = currentTurn === playerOneSymbol ? playerTwoSymbol : playerOneSymbol;
     if(checkWin()) {
       if (currentTurn === 'X') {
-        alert('Player O has won the game!');
+        sweetAlert({
+          title: "Player O Wins",
+          text: "Congratulations, play again!",
+          type: "success"
+        }, function(){
+          resetBoard();
+        });
+        playerTwoWins++;
+        playerTwo.innerHTML = 'Player O Win Count: ' + playerTwoWins;
       }
       else {
-        alert('Player X has won the game!');
+        sweetAlert({
+          title: "Player X Wins",
+          text: "Congratulations, play again!",
+          type: "success"
+        }, function(){
+          resetBoard();
+        });
+        playerOneWins++;
+        playerOne.innerHTML = 'Player X Win Count: ' + playerOneWins;
       }
-
     }
   });
 
@@ -31,6 +50,13 @@ document.addEventListener("DOMContentLoaded", function() {
       else {
         return false;
       }
+    });
+  }
+
+  function resetBoard() {
+    var squares = Array.prototype.slice.call(document.querySelectorAll('.square'), 0);
+    squares.map(function(square) {
+      square.innerHTML = "";
     });
   }
 });
