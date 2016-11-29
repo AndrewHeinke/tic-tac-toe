@@ -6,11 +6,23 @@ document.addEventListener("DOMContentLoaded", function() {
   var currentTurn = playerOneSymbol;
   var playerOne = document.querySelector('.playerX');
   var playerTwo = document.querySelector('.playerO');
+  var count = 0;
 
+  // click event function to add Xs and Os
+  // if checkWin function is true, alert will trigger and player win count will increment
   var board = document.querySelector('.board');
   board.addEventListener('click', function(e) {
-    e.target.innerHTML = currentTurn;
-    currentTurn = currentTurn === playerOneSymbol ? playerTwoSymbol : playerOneSymbol;
+    if (e.target.innerHTML === "") {
+      e.target.innerHTML = currentTurn;
+      count++;
+      if (currentTurn === playerOneSymbol) {
+        e.target.classList.add("red");
+      }
+      else {
+        e.target.classList.add("blue");
+      }
+      currentTurn = currentTurn === playerOneSymbol ? playerTwoSymbol : playerOneSymbol;
+    }
     if(checkWin()) {
       if (currentTurn === 'X') {
         sweetAlert({
@@ -35,8 +47,18 @@ document.addEventListener("DOMContentLoaded", function() {
         playerOne.innerHTML = 'Player X Win Count: ' + playerOneWins;
       }
     }
+    else if (!checkWin() && count>=9) {
+      sweetAlert({
+        title: "The game was a tie",
+        text: "Play again!",
+        type: "info"
+      }, function(){
+        resetBoard();
+      });
+    }
   });
 
+  // function to check win after each click. checks the current gameboard against an array of winning combos
   function checkWin() {
     var squares = Array.prototype.slice.call(document.querySelectorAll('.square'), 0);
     var symbols = squares.map(function(square) {
@@ -53,10 +75,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // function to clear gameboard
   function resetBoard() {
+    count = 0;
     var squares = Array.prototype.slice.call(document.querySelectorAll('.square'), 0);
     squares.map(function(square) {
       square.innerHTML = "";
+      square.classList.remove('red');
+      square.classList.remove('blue');
     });
   }
+
 });
